@@ -12,6 +12,7 @@ create-report-dir = "create_report_dir.cli:main"
 [tool.poetry.dependencies]
 python = "^3.11"
 fire = "^0.5.0"
+pyyaml = "^6.0"
 
 
 [tool.poetry.group.dev.dependencies]
