@@ -1,6 +1,6 @@
 import pytest
 
-from create_report_dir.cli import detect_invalid_char
+from create_report_dir.utils import detect_invalid_char
 
 
 @pytest.mark.parametrize(
