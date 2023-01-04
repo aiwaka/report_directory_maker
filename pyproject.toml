@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "create-report-dir"
+version = "0.1.0"
+description = ""
+authors = ["Aiwaka <kw.i.ku.1414@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "create_report_dir" }]
+
+[tool.poetry.scripts]
+create-report-dir = "create_report_dir.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fire = "^0.5.0"
+flake8 = "^6.0.0"
+black = "^22.12.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
