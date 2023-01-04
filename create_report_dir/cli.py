@@ -71,7 +71,11 @@ def create_file(
 def app(
     dir_name, filename: Union[str, None] = None, force: bool = False, title: str = ""
 ):
-    """アプリ本体"""
+    """
+    指定した名前のディレクトリを作成し, その中にuplatexのレポートのテンプレートを生成する.
+    設定ファイルで著者名とプリアンブルのテンプレートファイルを指定できる.
+    著者名はauthorの部分に埋め込まれ, プリアンブルは作成したディレクトリにコピーされる.
+    """
     config = get_config()
     preamble_path = config.get("preamble")
     author = str(config.get("author"))
