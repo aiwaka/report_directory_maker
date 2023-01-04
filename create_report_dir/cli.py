@@ -4,7 +4,8 @@ from typing import Union
 
 import fire
 
-from utils import detect_invalid_char, error_print
+from .utils import detect_invalid_char, error_print
+from .temp import latex_template
 
 
 def get_config():
@@ -31,7 +32,15 @@ def create_dir(dir_name: str, force: bool) -> str:
     return new_full_path
 
 
-def app(dir_name, filename: Union[str, None] = None, force: bool = False):
+def create_file(path: str, title: str, author: str):
+    with open(path, mode="w") as f:
+        f.write(latex_template.format(title=title, author=author))
+    print(f"created the file \x1b[38;5;11m'{path}'\x1b[m")
+
+
+def app(
+    dir_name, filename: Union[str, None] = None, force: bool = False, title: str = ""
+):
     """アプリ本体"""
     dir_name = str(dir_name)
     if filename is None:
@@ -43,8 +52,8 @@ def app(dir_name, filename: Union[str, None] = None, force: bool = False):
         filename += ".tex"
 
     new_full_path = create_dir(dir_name, force)
-    print(new_full_path)
-    print(filename)
+    filepath = new_full_path + "/" + filename
+    create_file(filepath, title, "author")
 
 
 def main():
