@@ -12,9 +12,12 @@ create-report-dir = "create_report_dir.cli:main"
 [tool.poetry.dependencies]
 python = "^3.11"
 fire = "^0.5.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
 flake8 = "^6.0.0"
 black = "^22.12.0"
-
 
 [build-system]
 requires = ["poetry-core"]
