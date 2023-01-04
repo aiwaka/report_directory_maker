@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 from typing import Union, Dict
 
 import fire
@@ -52,10 +53,19 @@ def create_dir(dir_name: str, force: bool) -> str:
     return new_full_path
 
 
-def create_file(path: str, title: str, author: str):
-    with open(path, mode="w") as f:
-        f.write(latex_template.format(title=title, author=author))
-    print(f"created the file \x1b[38;5;11m'{path}'\x1b[m")
+def create_file(
+    dir_path: str, filename: str, title: str, author: str, preamble: Union[None, str]
+):
+    """ファイルを作成する. preambleはディレクトリにコピーしたいファイルの絶対パスを指定する."""
+    filepath = os.path.join(dir_path, filename)
+    formatted = latex_template.format(title=title, author=author)
+    if preamble is None or not os.path.isfile(preamble):
+        print("preamble is not found (or undefined).")
+    else:
+        shutil.copy2(preamble, dir_path)
+    with open(filepath, mode="w") as f:
+        f.write(formatted)
+    print(f"created the file \x1b[38;5;11m'{filepath}'\x1b[m")
 
 
 def app(
@@ -76,8 +86,7 @@ def app(
         filename += ".tex"
 
     new_full_path = create_dir(dir_name, force)
-    filepath = os.path.join(new_full_path, filename)
-    create_file(filepath, title, author)
+    create_file(new_full_path, filename, title, author, preamble_path)
 
 
 def main():
