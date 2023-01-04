@@ -14,15 +14,25 @@ def detect_invalid_char(name: str) -> bool:
     return re.search(r'[\\|/|:|?|.|"|<|>|\|]', name) is not None
 
 
+def error_print(s: str):
+    print(f"\x1b[38;5;9m{s}\x1b[m")
+
+
 def create_dir(dir_name: str):
     """カレントディレクトリ直下にディレクトリを作成する."""
     cwd = os.getcwd()
     if detect_invalid_char(dir_name):
-        print(f"\x1b[38;5;9mThe directory name '{dir_name}' is not available.\x1b[m")
+        error_print(f"The directory name '{dir_name}' is not available.")
         sys.exit(1)
     new_full_path = os.path.normpath(cwd + "/" + dir_name)
 
-    print(new_full_path)
+    try:
+        os.mkdir(new_full_path)
+    except FileExistsError as e:
+        error_print(str(e))
+        sys.exit(2)
+    else:
+        print(f"created the directory \x1b[38;5;11m'{new_full_path}'\x1b[m")
 
 
 def app(dir_name):
